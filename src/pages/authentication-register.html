@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth antialiased">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Crear cuenta — NëWEMPY</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="../assets/images/logos/favicon.png" type="image/png" />
+
+    <!-- Tipografía -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Estilos base -->
+    <link rel="stylesheet" href="../assets/css/theme.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+</head>
+<!-- MODAL DE REGISTRO EXITOSO -->
+<div id="modal-registro-exitoso"
+     class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm">
+    <div class="bg-white p-8 rounded-xl shadow-xl max-w-sm w-full text-center animate-fade-in-down">
+        <div class="mb-4">
+            <div class="mx-auto bg-green-100 text-green-600 w-16 h-16 flex items-center justify-center rounded-full shadow">
+                <i class="ti ti-check text-3xl animate-bounce"></i>
+            </div>
+        </div>
+        <h2 class="text-lg font-semibold text-gray-800 mb-2">¡Cuenta creada con éxito!</h2>
+        <p class="text-sm text-gray-500 mb-6">Redirigiendo al login...</p>
+        <button onclick="ocultarModalExito()"
+                class="text-sm text-blue-600 hover:underline font-medium">
+            Cerrar ahora
+        </button>
+    </div>
+</div>
+<body class="bg-white font-sans text-gray-800">
+<main class="min-h-screen w-full flex items-center justify-center px-4">
+    <div class="max-w-md w-full bg-white border border-gray-200 rounded-2xl shadow-lg p-8 space-y-6">
+
+        <!-- Logo -->
+        <div class="flex justify-center">
+            <img src="../assets/images/logos/logoIcon.svg" alt="Logo NëWEMPY" class="h-10" />
+        </div>
+
+        <!-- Encabezado -->
+        <div class="text-center">
+            <h1 class="text-xl font-semibold">Crear cuenta</h1>
+            <p class="text-sm text-gray-500">Accede a la plataforma institucional</p>
+        </div>
+
+        <!-- Formulario -->
+        <form id="register-form" class="space-y-4">
+
+            <!-- Nombre -->
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-600 mb-1">Nombre completo</label>
+                <input type="text" id="name" name="name" required
+                       class="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Correo -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-600 mb-1">Correo institucional</label>
+                <input type="email" id="email" name="email" placeholder="usuario@institucion.edu.mx" required
+                       class="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Contraseña -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-600 mb-1">Contraseña</label>
+                <input type="password" id="password" name="password" required
+                       class="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Confirmar contraseña -->
+            <div>
+                <label for="confirm-password" class="block text-sm font-medium text-gray-600 mb-1">Confirmar contraseña</label>
+                <input type="password" id="confirm-password" name="confirm-password" required
+                       class="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Botón -->
+            <div class="pt-2">
+                <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-md transition-all duration-200">
+                    Crear cuenta
+                </button>
+            </div>
+
+            <!-- Redirección -->
+            <div class="text-center text-sm text-gray-500">
+                ¿Ya tienes cuenta?
+                <a href="./authentication-login.html" class="text-blue-600 hover:text-blue-700 font-medium">
+                    Inicia sesión
+                </a>
+            </div>
+
+        </form>
+    </div>
+</main>
+<!-- Fin del main -->
+
+<!-- Scripts necesarios -->
+<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../assets/libs/simplebar/dist/simplebar.min.js"></script>
+<script src="../assets/libs/iconify-icon/dist/iconify-icon.min.js"></script>
+<script src="../assets/libs/@preline/dropdown/index.js"></script>
+<script src="../assets/libs/@preline/overlay/index.js"></script>
+<script src="../assets/js/sidebarmenu.js"></script>
+<script src="../scripts/register.js"></script>
+</body>
+</html>

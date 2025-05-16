@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth antialiased">
+
+<head>
+    @@include("../partials/head.html")
+    <title>Tramos | Plataforma NëWEMPY</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ✅ Leaflet CSS -->
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""
+    />
+</head>
+
+<body class="bg-[#f0faf5] text-white font-sans">
+<div id="main-wrapper" class="flex w-full min-h-screen">
+
+    <!-- SIDEBAR -->
+    <aside id="application-sidebar-brand"
+           class="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transform hidden xl:block xl:translate-x-0 xl:end-auto xl:bottom-0 fixed top-0 z-[999] h-screen w-[270px] flex-shrink-0 border-r border-gray-700 bg-[#E5E7EB] left-sidebar transition-all duration-300">
+        @@include("../partials/sidebar.html")
+    </aside>
+
+    <!-- CONTENIDO -->
+    <div class="w-full flex flex-col min-h-screen overflow-x-hidden page-wrapper">
+
+        <!-- HEADER -->
+        <header class="w-full bg-[#0f2f22] border-b border-green-900">
+            <div class="container max-w-screen-xl mx-auto py-5 xl:px-9 px-5">
+                @@include("../partials/header.html")
+            </div>
+        </header>
+
+        <!-- MAIN -->
+        <main class="flex-1 w-full overflow-y-auto max-w-full pt-8 pb-20 px-6 xl:px-10 bg-[#0f2f22]">
+
+            <!-- ENCABEZADO PRINCIPAL -->
+            <section class="mb-8">
+                <h1 class="text-2xl xl:text-3xl font-bold tracking-tight text-white mb-1">Tramos supervisados</h1>
+                <p class="text-sm text-gray-400">
+                    Carga y visualiza polígonos asociados a tramos, registra bitácoras de campo y vincula información satelital.
+                </p>
+            </section>
+
+            <!-- BLOQUE 1: SUBIDA DE POLÍGONO -->
+            <section class="mb-10">
+                <div class="bg-[#193c2b]/70 border border-green-brand/30 rounded-xl p-6 shadow-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h3 class="text-base font-semibold text-white mb-1">Subir polígono de tramo</h3>
+                        <p class="text-sm text-gray-300">
+                            Acepta archivos <code>.shp</code>, <code>.kmz</code>, <code>.geojson</code>
+                        </p>
+                    </div>
+
+                    <div class="flex gap-4 items-center">
+                        <!-- Botón funcional con input oculto -->
+                        <div class="relative overflow-hidden inline-block">
+                            <label
+                                    for="input-poligono"
+                                    class="cursor-pointer bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-5 py-2 rounded-md shadow-sm transition-all duration-200 inline-block"
+                            >
+                                Subir polígono
+                                <input
+                                        id="input-poligono"
+                                        type="file"
+                                        accept=".geojson,.kml,.kmz"
+                                        class="hidden"
+                                />
+                            </label>
+                        </div>
+
+                        <a href="#" class="text-sm text-gray-300 hover:text-white underline transition">Descargar plantilla</a>
+                    </div>
+            </section>
+
+            <!-- BLOQUE 2: MAPA SATELITAL -->
+            <section class="mb-10">
+                <div class="bg-[#0e1c17] border border-green-brand/20 rounded-2xl overflow-hidden shadow-md">
+                    <div class="px-6 py-4 border-b border-green-brand/20 flex items-center justify-between">
+                        <h3 class="text-sm font-semibold text-white tracking-tight">Visor satelital de tramos</h3>
+                        <span class="text-xs text-gray-400">Compatible con archivos geoespaciales</span>
+                    </div>
+                    <div id="map" class="w-full h-[400px] sm:h-[500px] md:h-[600px] transition-all duration-300"></div>
+                </div>
+            </section>
+
+            <!-- BLOQUE 3: DETALLE DEL TRAMO -->
+            <!-- BOTÓN PARA REINICIAR EL VISOR -->
+            <div class="mt-6">
+                <button
+                        id="reiniciar-tramo"
+                        class="text-sm text-red-400 hover:text-red-600 transition-all underline">
+                     Reiniciar visor de tramo
+                </button>
+            </div>
+            <section class="mb-24">
+                <div class="bg-[#1c2e27] border border-green-brand/20 rounded-2xl p-6 shadow-sm relative">
+                    <h3 class="text-base font-semibold text-white mb-4">Resumen de tramo cargado</h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-8 text-sm text-gray-300 mb-4">
+                        <div>
+                            <p class="text-gray-400 uppercase text-[10px] font-bold">Tramo</p>
+                            <p class="font-medium text-white">1</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 uppercase text-[10px] font-bold">Fase</p>
+                            <p class="font-medium text-white">Plantación</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 uppercase text-[10px] font-bold">Densidad</p>
+                            <p class="font-medium text-white">Alta</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 uppercase text-[10px] font-bold">Vegetación</p>
+                            <p class="font-medium text-white">Coníferas</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 uppercase text-[10px] font-bold">Última bitácora</p>
+                            <p class="font-medium text-white">11/04/2025</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 uppercase text-[10px] font-bold">Responsable</p>
+                            <p class="font-medium text-white">Ing. Badillo</p>
+                        </div>
+                    </div>
+
+                    <!-- Botón editar -->
+                    <div class="absolute top-6 right-6">
+                        <a href="#" class="text-xs text-gray-400 hover:text-green-400 transition-all">Editar metadatos</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<!-- Leaflet JS -->
+<script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+<!-- Librería JSZip para descomprimir KMZ -->
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+<!-- Plugin Leaflet KML -->
+<script src="https://cdn.jsdelivr.net/gh/gabriel-milan/leaflet-kml@master/L.KML.js"></script>
+
+<!-- Script del visor base -->
+<script src="../scripts/visor-tramos.js"></script>
+
+<!-- Script del cargador de polígonos -->
+<script src="../scripts/visor-tramos-loader.js"></script>
+
+</body>
+</html>

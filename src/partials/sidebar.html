@@ -1,0 +1,118 @@
+<!-- ----------------------------------- -->
+<!-- Sidebar Institucional NëWEMPY V2   -->
+<!-- Estructura corregida y refinada    -->
+<!-- ----------------------------------- -->
+
+<aside class="left-sidebar bg-[#E5E7EB] min-h-screen border-r border-gray-300" data-sidebarbg="skin6">
+
+    <!-- Logo institucional -->
+    <div class="p-5">
+        @@include("./logo-sidebar.html")
+    </div>
+
+    <!-- Contenedor scroll -->
+    <div class="scroll-sidebar" data-simplebar="">
+        <div class="px-6 pt-6 pb-4">
+            <nav class="w-full flex flex-col sidebar-nav">
+                <ul id="sidebarnav" class="text-sm text-gray-700 font-medium tracking-tight space-y-1">
+
+                    <!-- Sección: INICIO -->
+                    <li class="text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-2 mt-4">
+                        <i class="ti ti-dots nav-small-cap-icon text-base hidden text-center"></i>
+                        <span>Inicio</span>
+                    </li>
+
+                    <!-- Dashboard -->
+                    <li class="sidebar-item">
+                        <a href="@@webRoot/index.html"
+                           class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-green-brand hover:text-white transition-colors duration-200 group">
+                            <i class="ti ti-layout-dashboard text-xl group-hover:text-white"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <!-- Proyectos -->
+                    <li class="sidebar-item">
+                        <a href="@@webRoot/pages/proyectos.html"
+                           class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-green-brand hover:text-white transition-colors duration-200 group">
+                            <i class="ti ti-folders text-xl group-hover:text-white"></i>
+                            <span>Proyectos</span>
+                        </a>
+                    </li>
+
+                    <!-- Bitácoras -->
+                    <li class="sidebar-item">
+                        <a href="@@webRoot/pages/bitacoras.html"
+                           class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-green-brand hover:text-white transition-colors duration-200 group">
+                            <i class="ti ti-notebook text-xl group-hover:text-white"></i>
+                            <span>Bitácoras</span>
+                        </a>
+                    </li>
+                    <!-- Tramos -->
+                    <li class="sidebar-item">
+                        <a href="@@webRoot/pages/tramos.html"
+                           class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-green-brand hover:text-white transition-colors duration-200 group">
+                            <i class="ti ti-route text-xl group-hover:text-white"></i>
+                            <span>Tramos</span>
+                        </a>
+                    </li>
+
+                    <!-- Usuarios -->
+                    <li class="sidebar-item">
+                        <a href="@@webRoot/pages/usuarios.html"
+                           class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-green-brand hover:text-white transition-colors duration-200 group">
+                            <i class="ti ti-users text-xl group-hover:text-white"></i>
+                            <span>Usuarios</span>
+                        </a>
+                    </li>
+
+                    <!-- Reportes -->
+                    <li class="sidebar-item">
+                        <a href="@@webRoot/pages/reportes.html"
+                           class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-green-brand hover:text-white transition-colors duration-200 group">
+                            <i class="ti ti-file-download text-xl group-hover:text-white"></i>
+                            <span>Reportes</span>
+                        </a>
+                    </li>
+
+                    <!-- Separador: Autenticación -->
+                    <li class="text-[10px] font-bold uppercase tracking-wider text-gray-500 mt-6 mb-2">
+                        <i class="ti ti-dots nav-small-cap-icon text-base hidden text-center"></i>
+                        <span>Autenticación</span>
+                    </li>
+
+                    <!-- Login -->
+                    <li class="sidebar-item">
+                        <a href="@@webRoot/pages/authentication-login.html"
+                           class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-green-brand hover:text-white transition-colors duration-200 group">
+                            <i class="ti ti-login text-xl group-hover:text-white"></i>
+                            <span>Login</span>
+                        </a>
+                    </li>
+
+                    <!-- Registro -->
+                    <li class="sidebar-item">
+                        <a href="@@webRoot/pages/authentication-register.html"
+                           class="sidebar-link flex items-center gap-3 px-3 py-2 rounded-md hover:bg-green-brand hover:text-white transition-colors duration-200 group">
+                            <i class="ti ti-user-plus text-xl group-hover:text-white"></i>
+                            <span>Registro</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Footer institucional NëWEMPY -->
+    <div class="mx-6 mt-8 mb-6 border-t border-gray-300 pt-4">
+        <div class="bg-white p-4 rounded-xl shadow-sm flex flex-col items-center justify-center text-center space-y-2">
+            <img src="@@webRoot/assets/images/logos/logoIcon.svg"
+                 alt="Logo NëWEMPY"
+                 class="h-10 opacity-90" />
+            <p class="text-xs text-gray-500 leading-tight">
+                Plataforma <strong>NëWEMPY</strong><br>
+                Gestión territorial y reforestación
+            </p>
+        </div>
+    </div>
+</aside>

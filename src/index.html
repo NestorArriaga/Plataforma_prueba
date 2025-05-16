@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth antialiased">
+<head>
+	@@include("partials/head.html")
+	<title>Plataforma NëWEMPY — Monitoreo Territorial y Reforestación</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+<!-- CONTENEDOR GENERAL -->
+<div id="main-wrapper" class="flex w-full min-h-screen bg-gray-50">
+
+	<!-- SIDEBAR INSTITUCIONAL (incluido) -->
+	<aside id="application-sidebar-brand"
+		   class="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transform hidden xl:block xl:translate-x-0 xl:end-auto xl:bottom-0 fixed top-0 z-[999] h-screen w-[270px] flex-shrink-0 border-r border-gray-300 bg-white left-sidebar transition-all duration-300">
+		@@include("partials/sidebar.html")
+	</aside>
+
+	<!-- WRAPPER DE CONTENIDO PRINCIPAL -->
+	<div class="w-full flex flex-col min-h-screen overflow-x-hidden page-wrapper">
+
+		<!-- HEADER SUPERIOR -->
+		<header class="w-full bg-white border-b border-gray-200 shadow-sm">
+			<div class="container max-w-screen-xl mx-auto py-5 xl:px-9 px-5">
+				@@include("partials/header.html")
+			</div>
+		</header>
+
+		<!-- CONTENIDO CENTRAL -->
+		<main class="flex-1 w-full overflow-y-auto max-w-full pt-6 pb-20 px-6 xl:px-10 bg-gray-50">
+			<!-- Aquí comenzará la Parte 2 -->
+			<!-- 🟩 SALUDO INSTITUCIONAL -->
+			<section class="mb-8">
+				<h1 class="text-2xl xl:text-3xl font-bold tracking-tight text-green-brand mb-1">
+					Bienvenido
+				</h1>
+				<p class="text-sm text-gray-500">
+					Última carga de datos: <span class="font-semibold text-gray-brand">11 de abril de 2025</span> · Tramo actual: <span class="text-green-brand font-semibold">Laguna Om (F1)</span>
+				</p>
+			</section>
+			<!-- 📤 CARGA DE ARCHIVO DE CAMPO -->
+			<section class="mb-10">
+				<!-- Input oculto -->
+				<input type="file" id="upload-input" accept=".csv, .xlsx" class="hidden" />
+
+				<!-- Botón visible -->
+				<button onclick="document.getElementById('upload-input').click()"
+						class="px-5 py-2 bg-green-brand text-white font-medium rounded-md shadow hover:bg-green-600 transition-all duration-200">
+					Subir archivo de campo
+				</button>
+
+				<p class="mt-2 text-xs text-gray-500">Formatos aceptados: .csv, .xlsx</p>
+			</section>
+			<!-- 🟩 TARJETAS DE RESUMEN INSTITUCIONAL -->
+			<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-12">
+
+				<!-- Proyectos activos -->
+				<div class="bg-blue-200/50 border-l-4 border-blue-brand p-5 rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex items-center gap-4">
+					<div class="bg-blue-300/40 text-blue-brand p-3 rounded-full">
+						<i class="ti ti-folders text-xl"></i>
+					</div>
+					<div>
+						<h3 class="text-sm text-gray-600 font-medium">Proyectos activos</h3>
+						<p class="text-3xl font-bold text-blue-brand">4</p> <!-- Puedes hacerlo dinámico más adelante -->
+					</div>
+				</div>
+
+				<!-- Tramos supervisados -->
+				<div class="bg-green-400/30 border-l-4 border-green-brand p-5 rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex items-center gap-4">
+					<div class="bg-green-500/30 text-green-brand p-3 rounded-full">
+						<i class="ti ti-route text-xl"></i>
+					</div>
+					<div>
+						<h3 class="text-sm text-gray-600 font-medium">Tramos supervisados</h3>
+						<p id="valor-tramos" class="text-3xl font-bold text-green-brand">0</p>
+					</div>
+				</div>
+
+				<!-- Jornales acumulados -->
+				<div class="bg-yellow-400/30 border-l-4 border-yellow-500 p-5 rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex items-center gap-4">
+					<div class="bg-yellow-500/30 text-yellow-600 p-3 rounded-full">
+						<i class="ti ti-users text-xl"></i>
+					</div>
+					<div>
+						<h3 class="text-sm text-gray-600 font-medium">Jornales acumulados</h3>
+						<p id="valor-jornales" class="text-3xl font-bold text-yellow-600">0</p>
+					</div>
+				</div>
+
+				<!-- Bitácoras registradas -->
+				<div class="bg-cyan-400/20 border-l-4 border-cyan-600 p-5 rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex items-center gap-4">
+					<div class="bg-cyan-500/30 text-cyan-600 p-3 rounded-full">
+						<i class="ti ti-notebook text-xl"></i>
+					</div>
+					<div>
+						<h3 class="text-sm text-gray-600 font-medium">Bitácoras registradas</h3>
+						<p id="valor-bitacoras" class="text-3xl font-bold text-cyan-600">0</p>
+					</div>
+				</div>
+
+			</section>
+			<!-- 🟦 GRÁFICA DE AVANCE POR TRAMO -->
+			<section class="mb-12">
+				<div class="bg-white border border-blue-200 rounded-2xl shadow-md p-6 transition duration-300 hover:shadow-lg">
+
+					<!-- ENCABEZADO DE LA SECCIÓN -->
+					<div class="flex items-center justify-between mb-5">
+						<div class="flex items-center gap-3">
+							<div class="bg-blue-200 text-blue-brand p-2 rounded-full">
+								<i class="ti ti-chart-bar text-lg"></i>
+							</div>
+							<h2 class="text-lg font-semibold text-blue-brand tracking-tight">
+								Avance por tramo
+							</h2>
+						</div>
+						<span class="text-sm text-gray-500">Datos procesados automáticamente desde archivo Excel</span>
+					</div>
+
+					<!-- CONTENEDOR DE LA GRÁFICA -->
+					<div id="chart-avance-tramos" class="h-[300px] w-full">
+						<!-- Aquí se inyectará la gráfica dinámicamente con ApexCharts -->
+					</div>
+				</div>
+			</section>
+			<!-- 🟩 GRÁFICA DE ACTIVIDADES EJECUTADAS (ÚNICA Y CORRECTA) -->
+			<section class="mb-12">
+				<div class="bg-white border border-green-brand rounded-2xl shadow-md p-6 transition duration-300 hover:shadow-lg">
+
+					<!-- ENCABEZADO DE LA SECCIÓN -->
+					<div class="flex items-center justify-between mb-5">
+						<div class="flex items-center gap-3">
+							<div class="bg-green-400/30 text-green-brand p-2 rounded-full">
+								<i class="ti ti-list-check text-lg"></i>
+							</div>
+							<h2 class="text-lg font-semibold text-green-brand tracking-tight">
+								Actividades ejecutadas
+							</h2>
+						</div>
+						<span class="text-sm text-gray-500">Distribución de tipos de tarea registradas</span>
+					</div>
+
+					<!-- CONTENEDOR DE LA GRÁFICA -->
+					<div id="chart-actividades" class="h-[300px] w-full">
+						<!-- Gráfica dinámica futura: tipo pastel o donut desde archivo Excel -->
+					</div>
+
+				</div>
+			</section>
+			<!-- 🕒 LÍNEA DE TIEMPO INSTITUCIONAL -->
+			<section class="mb-12">
+				<div class="bg-gray-100 border border-gray-300 rounded-2xl shadow-sm p-6 transition duration-300">
+
+					<!-- ENCABEZADO -->
+					<div class="flex items-center justify-between mb-5">
+						<div class="flex items-center gap-3">
+							<div class="bg-white text-gray-600 p-2 rounded-full shadow">
+								<i class="ti ti-clock text-lg"></i>
+							</div>
+							<h2 class="text-lg font-semibold text-gray-700 tracking-tight">
+								Últimos movimientos registrados
+							</h2>
+						</div>
+						<span class="text-sm text-gray-500">Bitácoras, actualizaciones, reportes</span>
+					</div>
+
+					<!-- LÍNEA DE TIEMPO (vacía por ahora, dinámica después) -->
+					<!-- FILTROS DINÁMICOS -->
+					<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+						<div>
+							<label class="block text-sm text-gray-600 mb-1">Filtrar por tramo</label>
+							<select id="filtro-tramo" class="w-full border border-gray-300 rounded-md text-sm p-2">
+								<option value="">Todos</option>
+							</select>
+						</div>
+						<div>
+							<label class="block text-sm text-gray-600 mb-1">Filtrar por actividad</label>
+							<select id="filtro-actividad" class="w-full border border-gray-300 rounded-md text-sm p-2">
+								<option value="">Todas</option>
+							</select>
+						</div>
+						<div>
+							<label class="block text-sm text-gray-600 mb-1">Filtrar por responsable</label>
+							<select id="filtro-responsable" class="w-full border border-gray-300 rounded-md text-sm p-2">
+								<option value="">Todos</option>
+							</select>
+						</div>
+					</div>
+					<ul class="space-y-4">
+						<!-- Ejemplo estático temporal -->
+						<li class="flex items-start gap-4">
+							<div class="mt-1 text-gray-400">
+								<i class="ti ti-check text-base"></i>
+							</div>
+							<div>
+								<p class="text-sm text-gray-700">
+									<span class="font-semibold text-gray-brand">Procoro</span> cargó una nueva bitácora para el tramo <span class="font-semibold">Laguna Om (F1)</span>
+								</p>
+								<span class="text-xs text-gray-500">Hoy, 09:32 a.m.</span>
+							</div>
+						</li>
+
+						<li class="flex items-start gap-4">
+							<div class="mt-1 text-gray-400">
+								<i class="ti ti-file-text text-base"></i>
+							</div>
+							<div>
+								<p class="text-sm text-gray-700">
+									Se generó un reporte de actividades para la zona <span class="font-semibold">Sierra Verde</span>
+								</p>
+								<span class="text-xs text-gray-500">Ayer, 4:15 p.m.</span>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</section>
+			<!-- ℹ️ AYUDA CONTEXTUAL INSTITUCIONAL -->
+			<section class="mb-12">
+				<div class="bg-blue-200/40 border-l-4 border-blue-brand rounded-2xl shadow-sm p-5 flex items-start gap-4">
+
+					<!-- ÍCONO -->
+					<div class="text-blue-brand p-2 bg-blue-200/60 rounded-full">
+						<i class="ti ti-info-circle text-lg"></i>
+					</div>
+
+					<!-- TEXTO -->
+					<div>
+						<h3 class="text-sm font-semibold text-blue-brand mb-1">
+							¿Qué estás viendo aquí?
+						</h3>
+						<p class="text-sm text-gray-700 leading-relaxed">
+							Este panel muestra los avances registrados en el último archivo cargado de campo. Puedes navegar por los tramos supervisados, consultar las bitácoras registradas y analizar la distribución de actividades ejecutadas.
+							Usa los íconos del menú lateral para explorar cada módulo en profundidad.
+						</p>
+					</div>
+
+				</div>
+			</section>
+			<!-- 🧩 COMPONENTES VISUALES Y FUNCIONALES — NËWEMPY -->
+			<section class="mb-16">
+				<div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+					<!-- ✅ Estado: Activo -->
+					<div class="inline-flex items-center px-3 py-[3px] rounded-full bg-green-400/30 text-green-brand text-xs font-semibold">
+						Activo
+					</div>
+
+					<!-- ⚠️ Estado: En revisión -->
+					<div class="inline-flex items-center px-3 py-[3px] rounded-full bg-yellow-400/30 text-yellow-600 text-xs font-semibold">
+						En revisión
+					</div>
+
+					<!-- ❌ Estado: Inactivo -->
+					<div class="inline-flex items-center px-3 py-[3px] rounded-full bg-red-400/30 text-red-500 text-xs font-semibold">
+						Inactivo
+					</div>
+
+					<!-- 🚫 Estado: Error o inconsistencia -->
+					<div class="inline-flex items-center px-3 py-[3px] rounded-full bg-red-500/20 text-red-600 text-xs font-semibold">
+						Inconsistencia
+					</div>
+
+					<!-- 🔄 Loader -->
+					<div class="flex items-center gap-2">
+						<div class="w-5 h-5 border-2 border-blue-300 border-t-transparent rounded-full animate-spin" aria-label="Cargando"></div>
+						<span class="text-sm text-gray-500">Cargando datos</span>
+					</div>
+
+					<!-- 🛈 Tooltip contextual -->
+					<div class="relative group inline-flex items-center gap-2 cursor-pointer">
+						<i class="ti ti-help text-base text-gray-400"></i>
+						<span class="text-sm text-gray-600">¿Qué significa “En revisión”?</span>
+						<div class="absolute z-20 hidden group-hover:block text-xs text-white bg-gray-800 rounded-md px-3 py-2 mt-2 shadow-md whitespace-nowrap left-1/2 -translate-x-1/2 top-full">
+							Indica que un técnico aún debe validar esta información.
+						</div>
+					</div>
+
+					<!-- 🏷️ Etiqueta de prioridad -->
+					<span class="inline-block bg-blue-500/10 text-blue-700 text-xs font-semibold px-3 py-[2px] rounded-2xl">
+      Prioridad alta
+    </span>
+
+					<!-- 👤 Etiqueta de rol -->
+					<span class="inline-block bg-green-500/10 text-green-brand text-xs font-semibold px-3 py-[2px] rounded-2xl">
+      Coordinador
+    </span>
+
+					<!-- ⛔ Campo vacío o no disponible -->
+					<div class="text-sm text-gray-400 italic">
+						Información no disponible
+					</div>
+
+					<!-- ⚙️ Campo “En construcción” -->
+					<div class="inline-flex items-center gap-2 text-sm text-yellow-600 italic">
+						<i class="ti ti-tools text-base"></i> En construcción
+					</div>
+
+					<!-- 👤 Área de usuario futura (para login dinámico) -->
+					<div id="user-area-placeholder" class="flex items-center gap-3 text-sm text-gray-600">
+						<i class="ti ti-user text-xl text-gray-400"></i>
+						Usuario no autenticado
+					</div>
+
+				</div>
+
+				<!-- 🧠 NOTA IMPORTANTE (solo comentario de código) -->
+				<!--
+                  NOTA: El ícono de Login debe ocultarse si el usuario está logueado.
+                  Usa localStorage o Supabase para control de sesión.
+                  Ver función sugerida en scripts/dashboard.js
+                -->
+			</section>
+			<!-- 🧾 FOOTER INSTITUCIONAL NËWEMPY — ACTUALIZADO -->
+			<footer class="border-t border-gray-300 pt-8 mt-12">
+				<div class="flex flex-col sm:flex-row justify-between items-center text-center gap-4 px-4 pb-8 text-sm text-gray-500">
+
+					<!-- Logo y marca -->
+					<div class="flex items-center gap-3">
+						<img src="assets/images/logos/logoIcon.svg" alt="Logo NëWEMPY" class="h-8 opacity-90" />
+						<div>
+							<p class="font-semibold text-blue-brand">Plataforma NëWEMPY</p>
+							<p class="text-xs text-blue-brand">Gestión territorial y reforestación</p>
+						</div>
+					</div>
+
+					<!-- Versión y crédito -->
+					<div class="text-xs text-gray-500 text-right">
+						<p>Versión 1.0.0</p>
+						<p class="mt-1">Hecho por <span class="font-medium text-blue-brand">Néstor Arriaga</span></p>
+					</div>
+
+				</div>
+			</footer>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth antialiased">
+
+<head>
+    @@include("../partials/head.html")
+    <title>Bitácoras | Plataforma NëWEMPY</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="bg-[#f9f9f9] text-[#111827] font-sans">
+
+<!-- CONTENEDOR GENERAL -->
+<div id="main-wrapper" class="flex w-full min-h-screen">
+
+    <!-- SIDEBAR INSTITUCIONAL -->
+    <aside id="application-sidebar-brand"
+           class="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transform hidden xl:block xl:translate-x-0 fixed top-0 z-[999] h-screen w-[270px] flex-shrink-0 border-r border-gray-200 bg-[#f3f4f6] left-sidebar transition-all duration-300">
+        @@include("../partials/sidebar.html")
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="w-full flex flex-col min-h-screen overflow-x-hidden page-wrapper">
+
+        <!-- HEADER SUPERIOR -->
+        <header class="w-full bg-white border-b border-gray-200">
+            <div class="container max-w-screen-xl mx-auto py-5 xl:px-9 px-5">
+                @@include("../partials/header.html")
+            </div>
+        </header>
+
+        <!-- CUERPO PRINCIPAL -->
+        <main class="flex-1 w-full overflow-y-auto max-w-full pt-8 pb-20 px-6 xl:px-10 bg-[#f9f9f9]">
+
+            <!-- BLOQUE 1: ENCABEZADO Y CARGA DE ARCHIVO -->
+            <section class="w-full max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-sm p-8 space-y-6">
+
+                <!-- TÍTULO Y DESCRIPCIÓN -->
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h1 class="text-2xl xl:text-3xl font-bold text-gray-900 mb-1">Carga de Bitácoras</h1>
+                        <p class="text-sm text-gray-500">
+                            Importa los registros desde un archivo Excel <span class="font-mono">.xlsx</span>.
+                        </p>
+                    </div>
+
+                    <!-- BOTÓN DE AYUDA -->
+                    <button
+                            class="w-6 h-6 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                            title="¿Cómo funciona la carga?">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-full h-full" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M8.25 9.75a3.75 3.75 0 117.5 0c0 1.25-.5 2-2 2.75s-1.5 1.5-1.5 2.5m.008 3.002h.008M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- ÁREA DE CARGA -->
+                <div class="border border-dashed border-gray-300 rounded-xl py-10 px-6 text-center relative group transition-all duration-200">
+
+                    <!-- Ícono Excel -->
+                    <div class="bg-green-100 rounded-full w-14 h-14 flex items-center justify-center mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-green-600" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                    d="M4 4a2 2 0 012-2h10l4 4v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm9.354 7.146a.5.5 0 00-.708.708L13.293 13H10.5a.5.5 0 000 1h2.793l-1.147 1.146a.5.5 0 00.708.708l2-2a.5.5 0 000-.708l-2-2z" />
+                        </svg>
+                    </div>
+
+                    <!-- Instrucción -->
+                    <p class="text-sm text-gray-500 mb-3">
+                        Arrastra y suelta el archivo aquí, o examina tu computadora
+                    </p>
+
+                    <!-- Botón funcional -->
+                    <label
+                            for="input-bitacora"
+                            class="cursor-pointer bg-white border border-gray-300 hover:border-gray-400 px-5 py-2 text-sm text-gray-700 rounded-md shadow-sm transition-all">
+                        Subir archivo...
+                        <input id="input-bitacora" type="file" accept=".xlsx" class="hidden" />
+                    </label>
+
+                    <!-- Acción secundaria -->
+                    <div class="text-sm text-gray-500 mt-4">
+                        <a href="#" class="text-blue-600 hover:underline">Descargar plantilla</a>
+                    </div>
+                </div>
+
+            </section>
+            <!-- BLOQUE 2: RESULTADOS DE CARGA -->
+            <section id="bloque-resultados" class="hidden w-full max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-sm px-6 py-8 mt-8 space-y-6">
+
+                <!-- Encabezado y barra de estado -->
+                <div class="flex items-center justify-between flex-wrap gap-y-2">
+
+                    <!-- Estado (subiendo, errores, éxito) -->
+                    <div class="flex items-center space-x-4 text-sm">
+            <span class="flex items-center space-x-1 text-green-700 font-medium">
+                <span class="w-2 h-2 bg-green-600 rounded-full inline-block animate-pulse"></span>
+                <span>Subiendo...</span>
+            </span>
+
+                        <span class="text-green-600 font-semibold hidden sm:inline">✔ 215 registros actualizados</span>
+                        <span class="text-red-600 font-semibold">❌ 3 errores</span>
+                    </div>
+
+                    <!-- Acciones: descargar o ver detalles -->
+                    <div class="text-sm space-x-4">
+                        <a href="#" class="text-blue-600 hover:underline">Descargar plantilla</a>
+                        <a href="#" class="text-gray-500 hover:text-gray-800 hover:underline">Ver detalle</a>
+                    </div>
+                </div>
+
+                <!-- Barra de progreso -->
+                <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-green-500 rounded-full transition-all duration-500" style="width: 92%;"></div>
+                </div>
+
+                <!-- Tabla de errores -->
+                <div class="overflow-x-auto border border-gray-200 rounded-lg">
+                    <table class="min-w-full text-sm text-left">
+                        <thead class="bg-gray-50 border-b border-gray-200 text-gray-600 uppercase text-xs font-bold tracking-wide">
+                        <tr>
+                            <th class="px-4 py-2">Fila</th>
+                            <th class="px-4 py-2">Mensaje</th>
+                            <th class="px-4 py-2 text-center">Error</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-gray-700 divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-4 py-3 font-mono text-gray-800">3</td>
+                            <td class="px-4 py-3">Formato de fecha inválido</td>
+                            <td class="px-4 py-3 text-center text-red-500 font-bold">✕</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-mono text-gray-800">18</td>
+                            <td class="px-4 py-3">Usuario no encontrado</td>
+                            <td class="px-4 py-3 text-center text-red-500 font-bold">✕</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-mono text-gray-800">24</td>
+                            <td class="px-4 py-3">Dato requerido ausente</td>
+                            <td class="px-4 py-3 text-center text-red-500 font-bold">✕</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- BLOQUE 3: BITÁCORAS CARGADAS -->
+            <section id="bloque-bitacoras" class="w-full max-w-6xl mx-auto mt-12">
+                <h2 class="text-xl font-bold text-gray-900 mb-6">Bitácoras cargadas</h2>
+
+                <!-- Contenedor de tarjetas -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Tarjeta ejemplo -->
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-5 space-y-3 transition hover:shadow-md">
+                        <div class="flex items-center justify-between text-sm text-gray-500">
+                            <span class="font-medium text-gray-900">Tramo 1</span>
+                            <span class="text-green-600 font-semibold">✔ Activa</span>
+                        </div>
+
+                        <div class="text-sm space-y-1">
+                            <p><span class="font-semibold text-gray-700">Responsable:</span> Ing. Badillo</p>
+                            <p><span class="font-semibold text-gray-700">Fecha:</span> 11/04/2025</p>
+                            <p><span class="font-semibold text-gray-700">Fase:</span> Plantación</p>
+                            <p><span class="font-semibold text-gray-700">Observaciones:</span> Zona con buena humedad</p>
+                        </div>
+
+                        <div class="flex items-center justify-end">
+                            <a href="#" class="text-sm text-blue-600 hover:underline" onclick='mostrarDetalleBitacora(${JSON.stringify(bitacora)})'>Ver detalles</a>
+                        </div>
+                    </div>
+
+                    <!-- Otras tarjetas serán generadas dinámicamente -->
+                </div>
+            </section>
+            <!-- BLOQUE 4: BITÁCORA INDIVIDUAL -->
+            <section id="bloque-detalle-bitacora" class="w-full max-w-4xl mx-auto mt-12 hidden">
+                <div class="bg-white border border-gray-200 rounded-2xl shadow-md px-8 py-6 space-y-6 relative">
+
+                    <!-- Encabezado -->
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-900 mb-1">Bitácora: Tramo 1</h2>
+                            <p class="text-sm text-gray-500">Detalles completos de la bitácora registrada.</p>
+                        </div>
+                        <!-- Botón cerrar -->
+                        <button id="cerrar-bitacora"
+                                class="text-gray-400 hover:text-gray-600 transition-all text-sm"
+                                title="Cerrar detalle">
+                            ✕
+                        </button>
+                    </div>
+
+                    <!-- Contenido detallado -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-gray-700">
+                        <div>
+                            <p class="text-gray-500 text-xs uppercase font-semibold mb-1">Tramo</p>
+                            <p class="font-medium">1</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs uppercase font-semibold mb-1">Fase</p>
+                            <p class="font-medium">Plantación</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs uppercase font-semibold mb-1">Densidad</p>
+                            <p class="font-medium">Alta</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500 text-xs uppercase font-semibold mb-1">Responsable</p>
+                            <p class="font-medium">Ing. Badillo</p>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <p class="text-gray-500 text-xs uppercase font-semibold mb-1">Observaciones</p>
+                            <p class="font-medium">Zona húmeda con cobertura vegetal intermedia. Se recomienda seguimiento en 15 días.</p>
+                        </div>
+                    </div>
+
+                    <!-- Acciones -->
+                    <div class="flex justify-end pt-4 border-t border-gray-200 mt-4">
+                        <a href="#" class="text-sm text-blue-600 hover:underline">Descargar reporte PDF</a>
+                    </div>
+                </div>
+            </section>
+            <!-- BLOQUE 5: TABLA COMPLETA DE BITÁCORAS -->
+            <section id="bloque-tabla" class="w-full max-w-6xl mx-auto mt-14 space-y-6">
+                <!-- Filtros -->
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <!-- Filtro por responsable -->
+                    <div>
+                        <label for="filtro-responsable" class="block text-sm text-gray-600 mb-1">Responsable</label>
+                        <select id="filtro-responsable" class="border-gray-300 rounded-md text-sm px-3 py-2">
+                            <option value="">Todos</option>
+                            <option value="Badillo">Ing. Badillo</option>
+                            <option value="Pérez">Ing. Pérez</option>
+                            <!-- Se agregarán más dinámicamente -->
+                        </select>
+                    </div>
+
+                    <!-- Filtro por fase -->
+                    <div>
+                        <label for="filtro-fase" class="block text-sm text-gray-600 mb-1">Fase</label>
+                        <select id="filtro-fase" class="border-gray-300 rounded-md text-sm px-3 py-2">
+                            <option value="">Todas</option>
+                            <option value="Plantación">Plantación</option>
+                            <option value="Mantenimiento">Mantenimiento</option>
+                        </select>
+                    </div>
+
+                    <!-- Buscar por tramo o fecha -->
+                    <div class="flex-grow max-w-sm">
+                        <label for="filtro-busqueda" class="block text-sm text-gray-600 mb-1">Buscar</label>
+                        <input type="text"
+                               id="filtro-busqueda"
+                               placeholder="Tramo, fecha o palabra clave"
+                               class="w-full border-gray-300 rounded-md text-sm px-3 py-2" />
+                    </div>
+                </div>
+
+                <!-- Tabla -->
+                <div class="overflow-x-auto border border-gray-200 rounded-xl shadow-sm">
+                    <table class="min-w-full text-sm text-left">
+                        <thead class="bg-gray-100 text-gray-600 uppercase text-xs font-bold tracking-wide">
+                        <tr>
+                            <th class="px-4 py-3">Tramo</th>
+                            <th class="px-4 py-3">Responsable</th>
+                            <th class="px-4 py-3">Fecha</th>
+                            <th class="px-4 py-3">Fase</th>
+                            <th class="px-4 py-3">Observaciones</th>
+                            <th class="px-4 py-3 text-center">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tabla-bitacoras" class="text-gray-800 divide-y divide-gray-100">
+                        <!-- Se llenará dinámicamente -->
+                        <tr>
+                            <td class="px-4 py-3 font-medium">1</td>
+                            <td class="px-4 py-3">Ing. Badillo</td>
+                            <td class="px-4 py-3">11/04/2025</td>
+                            <td class="px-4 py-3">Plantación</td>
+                            <td class="px-4 py-3">Zona húmeda</td>
+                            <td class="px-4 py-3 text-center">
+                                <a href="#" class="text-blue-600 text-sm hover:underline">Ver detalle</a>
+                            </td>
+                        </tr>
+                        <!-- Más registros se agregarán vía JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+<!-- 📦 Librería para leer archivos Excel -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<!-- 🧠 Script de carga de bitácoras -->
+<script src="../scripts/bitacoras-upload.js"></script>
+<!-- Script inicial (en blanco aún) -->
+<script src="../scripts/bitacoras-upload.js"></script>
+</body>
+</html>
